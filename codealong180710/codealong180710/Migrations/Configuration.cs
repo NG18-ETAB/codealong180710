@@ -19,7 +19,7 @@ namespace codealong180710.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            Vehicle v = new Vehicle() { Name = "Demo Car", Color = "Red", Make = "Demo", Model = "Demo", NrOfWheels = 4, RegNr="DEM001" };
+            Vehicle v = new Vehicle() { Name = "Demo Car", Color = "Red", Make = "Demo", Model = "Demo", NrOfWheels = 4, RegNr="DEM001", VehicleType = VehicleType.Car, CheckInTime = DateTime.Now.AddDays(-1)};
             context.Vehicles.AddOrUpdate(x=>x.RegNr,v);
             context.SaveChanges();
         }

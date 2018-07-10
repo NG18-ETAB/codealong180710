@@ -22,7 +22,9 @@ namespace codealong180710.Controllers
             foreach (var v in db.Vehicles.ToList())
             {
                 viewModels.Add(new VehicleIndexViewModel() { Id = v.Id,
-                    Color = v.Color, Name = v.Name, RegNr = v.RegNr });
+                    Color = v.Color, Name = v.Name,
+                    RegNr = v.RegNr, VehicleType = v.VehicleType,
+                    CheckInTime =v.CheckInTime });
             }
             return View(viewModels);
         }
@@ -53,10 +55,11 @@ namespace codealong180710.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Park([Bind(Include = "Id,RegNr,Name,NrOfWheels,Color,Model,Make")] Vehicle vehicle)
+        public ActionResult Park([Bind(Include = "Id,RegNr,Name,VehicleType,NrOfWheels,Color,Model,Make")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
+                vehicle.CheckInTime = DateTime.Now;
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -85,11 +88,19 @@ namespace codealong180710.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RegNr,Name,NrOfWheels,Color,Model,Make")] Vehicle vehicle)
+        public ActionResult Edit([Bind(Include = "Id,RegNr,Name,VehicleType,NrOfWheels,Color,Model,Make")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vehicle).State = EntityState.Modified;
+                Vehicle v = db.Vehicles.First(x => x.Id == vehicle.Id);
+                v.Color = vehicle.Color;
+                v.Make = vehicle.Make;
+                v.Model = vehicle.Model;
+                v.Name = vehicle.Name;
+                v.NrOfWheels = vehicle.NrOfWheels;
+                v.RegNr = vehicle.RegNr;
+                v.VehicleType = vehicle.VehicleType;
+                //db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

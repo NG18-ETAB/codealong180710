@@ -162,9 +162,18 @@
     <Compile Include="Migrations\201807100846398_secound.Designer.cs">
       <DependentUpon>201807100846398_secound.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807100917416_third.cs" />
+    <Compile Include="Migrations\201807100917416_third.Designer.cs">
+      <DependentUpon>201807100917416_third.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807100932395_fourth.cs" />
+    <Compile Include="Migrations\201807100932395_fourth.Designer.cs">
+      <DependentUpon>201807100932395_fourth.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\VehicleIndexViewModel.cs" />
+    <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +241,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807100846398_secound.resx">
       <DependentUpon>201807100846398_secound.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807100917416_third.resx">
+      <DependentUpon>201807100917416_third.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807100932395_fourth.resx">
+      <DependentUpon>201807100932395_fourth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
