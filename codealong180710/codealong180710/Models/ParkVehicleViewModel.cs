@@ -6,12 +6,11 @@ using System.Web;
 
 namespace codealong180710.Models
 {
-    public class Vehicle
+    public class ParkVehicleViewModel
     {
-        public int Id { get; set; }
         [Required]
         [StringLength(6, MinimumLength = 6, ErrorMessage = "The Registration Number Must Be 6 Characters")]
-        [Display(Name="Registration number")]
+        [Display(Name = "Registration number")]
         public string RegNr { get; set; }
         [Required]
         public string Name { get; set; }
@@ -20,8 +19,8 @@ namespace codealong180710.Models
         [Display(Name = "Vehicle Type")]
         public VehicleType VehicleType { get; set; }
 
-        [Range(0,20, ErrorMessage = "0-20 wheels.. please.. \t Try Again")]
-        [Display(Name="Number of Wheels")]
+        [Range(0, 20, ErrorMessage = "0-20 wheels.. please.. \t Try Again")]
+        [Display(Name = "Number of Wheels")]
         [Required]
         public int NrOfWheels { get; set; }
         [Required]
@@ -30,10 +29,8 @@ namespace codealong180710.Models
         public string Model { get; set; }
         [Required]
         public string Make { get; set; }
-        [Required]
-        [Display(Name = "Check in Time")]
-        public DateTime CheckInTime { get; set; }
 
+        public string ErrorMessage { get; set; }
 
     }
 }
