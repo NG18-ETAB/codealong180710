@@ -18,15 +18,61 @@ namespace codealong180710.Controllers
         // GET: Vehicles
         public ActionResult Index()
         {
-            List<VehicleIndexViewModel> viewModels = new List<VehicleIndexViewModel>();
+            List<IndexVehicle> vehicles = new List<IndexVehicle>();
             foreach (var v in db.Vehicles.ToList())
             {
-                viewModels.Add(new VehicleIndexViewModel() { Id = v.Id,
-                    Color = v.Color, Name = v.Name,
-                    RegNr = v.RegNr, VehicleType = v.VehicleType,
-                    CheckInTime =v.CheckInTime });
+                vehicles.Add(new IndexVehicle()
+                {
+                    Id = v.Id,
+                    Color = v.Color,
+                    Name = v.Name,
+                    RegNr = v.RegNr,
+                    VehicleType = v.VehicleType,
+                    CheckInTime = v.CheckInTime
+                });
             }
-            return View(viewModels);
+            IndexViewModel model = new IndexViewModel();
+
+            model.Vehicles = vehicles;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Index([Bind(Include = "SearchString,SearchField")] IndexViewModel viewModel)
+        {
+            //IndexViewModel model = search;
+            //model.SearchString = search;
+            List<IndexVehicle> vehicles = new List<IndexVehicle>();
+            if (String.IsNullOrWhiteSpace(viewModel.SearchString))
+            {
+                return RedirectToAction("Index");
+            }
+
+            List<Vehicle> databaseList = new List<Vehicle>();
+
+            if (viewModel.SearchField == "RegNr")
+            {
+                databaseList = db.Vehicles.Where(x => x.RegNr.Contains(viewModel.SearchString)).ToList();
+            }
+            else if (viewModel.SearchField == "VehicleType")
+            {
+                databaseList = db.Vehicles.Where(x => x.VehicleType.ToString().Contains(viewModel.SearchString)).ToList();
+            }
+            foreach (var v in databaseList)
+            {
+                vehicles.Add(new IndexVehicle()
+                {
+                    Id = v.Id,
+                    Color = v.Color,
+                    Name = v.Name,
+                    RegNr = v.RegNr,
+                    VehicleType = v.VehicleType,
+                    CheckInTime = v.CheckInTime
+                });
+            }
+            viewModel.Vehicles = vehicles;
+            return View(viewModel);
         }
 
         // GET: Vehicles/Details/5
@@ -55,17 +101,33 @@ namespace codealong180710.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Park([Bind(Include = "Id,RegNr,Name,VehicleType,NrOfWheels,Color,Model,Make")] Vehicle vehicle)
+        public ActionResult Park([Bind(Include = "Id,RegNr,Name,VehicleType,NrOfWheels,Color,Model,Make")] ParkVehicleViewModel fork)
         {
+            if (db.Vehicles.Where(x => x.RegNr == fork.RegNr).Count() > 0)
+            {
+                fork.ErrorMessage = "The registration number must be uniqe";
+                return View(fork);
+            }
+
             if (ModelState.IsValid)
             {
-                vehicle.CheckInTime = DateTime.Now;
+                Vehicle vehicle = new Vehicle()
+                {
+                    RegNr = fork.RegNr,
+                    Color = fork.Color,
+                    Make = fork.Make,
+                    Model = fork.Model,
+                    Name = fork.Name,
+                    NrOfWheels = fork.NrOfWheels,
+                    VehicleType = fork.VehicleType,
+                    CheckInTime = DateTime.Now
+                };
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(vehicle);
+            return View(fork);
         }
 
         // GET: Vehicles/Edit/5
@@ -128,9 +190,22 @@ namespace codealong180710.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Vehicle vehicle = db.Vehicles.Find(id);
+
+            Receipt receipt = new Receipt();
+            receipt.RegNr = vehicle.RegNr;
+            receipt.VehicleType = vehicle.VehicleType;
+            receipt.CheckInTime = vehicle.CheckInTime;
+            receipt.CheckOutTime = DateTime.Now;
+
+            int totalMin = Convert.ToInt32((DateTime.Now - receipt.CheckInTime).TotalMinutes);
+
+            receipt.TotalTime = totalMin + " min";
+            receipt.TotalPrice = ((totalMin / 30) * 100) + " kr";
+
             db.Vehicles.Remove(vehicle);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return View("Receipt", receipt);
         }
 
         protected override void Dispose(bool disposing)

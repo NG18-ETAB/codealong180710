@@ -6,7 +6,7 @@ using System.Web;
 
 namespace codealong180710.Models
 {
-    public class VehicleIndexViewModel
+    public class IndexVehicle
     {
         public int Id { get; set; }
         public string Name { get; set; }

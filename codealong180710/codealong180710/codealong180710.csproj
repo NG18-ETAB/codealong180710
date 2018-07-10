@@ -171,8 +171,11 @@
       <DependentUpon>201807100932395_fourth.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\ParkVehicleViewModel.cs" />
+    <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\Vehicle.cs" />
-    <Compile Include="Models\VehicleIndexViewModel.cs" />
+    <Compile Include="Models\IndexVehicle.cs" />
     <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -218,6 +221,7 @@
     <Content Include="Views\Vehicles\Details.cshtml" />
     <Content Include="Views\Vehicles\Edit.cshtml" />
     <Content Include="Views\Vehicles\Index.cshtml" />
+    <Content Include="Views\Vehicles\Receipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
