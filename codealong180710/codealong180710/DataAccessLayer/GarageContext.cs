@@ -7,12 +7,12 @@ using System.Web;
 
 namespace codealong180710.DataAccessLayer
 {
-    public class GarageContext: DbContext
+    public class GarageContext : DbContext
     {
-        public GarageContext():base("codealong180710")
+        public GarageContext() : base("codealong180710")
         {
-
         }
+
         public DbSet<Vehicle> Vehicles { get; set; }
     }
 }

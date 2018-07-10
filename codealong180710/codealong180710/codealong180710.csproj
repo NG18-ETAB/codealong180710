@@ -154,17 +154,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807100943295_Garage.cs" />
-    <Compile Include="Migrations\201807100943295_Garage.Designer.cs">
-      <DependentUpon>201807100943295_Garage.cs</DependentUpon>
+    <Compile Include="Migrations\201807100744285_Init.cs" />
+    <Compile Include="Migrations\201807100744285_Init.Designer.cs">
+      <DependentUpon>201807100744285_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807101112338_garage23.cs" />
-    <Compile Include="Migrations\201807101112338_garage23.Designer.cs">
-      <DependentUpon>201807101112338_garage23.cs</DependentUpon>
+    <Compile Include="Migrations\201807100846398_secound.cs" />
+    <Compile Include="Migrations\201807100846398_secound.Designer.cs">
+      <DependentUpon>201807100846398_secound.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807100917416_third.cs" />
+    <Compile Include="Migrations\201807100917416_third.Designer.cs">
+      <DependentUpon>201807100917416_third.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807100932395_fourth.cs" />
+    <Compile Include="Migrations\201807100932395_fourth.Designer.cs">
+      <DependentUpon>201807100932395_fourth.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
+    <Compile Include="Models\ParkVehicleViewModel.cs" />
+    <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\Vehicle.cs" />
-    <Compile Include="Models\VehicleIndexViewModel.cs" />
+    <Compile Include="Models\IndexVehicle.cs" />
     <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -210,6 +221,7 @@
     <Content Include="Views\Vehicles\Details.cshtml" />
     <Content Include="Views\Vehicles\Edit.cshtml" />
     <Content Include="Views\Vehicles\Index.cshtml" />
+    <Content Include="Views\Vehicles\Receipt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -228,11 +240,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807100943295_Garage.resx">
-      <DependentUpon>201807100943295_Garage.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807100744285_Init.resx">
+      <DependentUpon>201807100744285_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807101112338_garage23.resx">
-      <DependentUpon>201807101112338_garage23.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807100846398_secound.resx">
+      <DependentUpon>201807100846398_secound.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807100917416_third.resx">
+      <DependentUpon>201807100917416_third.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807100932395_fourth.resx">
+      <DependentUpon>201807100932395_fourth.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -249,7 +267,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58467</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

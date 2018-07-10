@@ -1,11 +1,12 @@
 ﻿@model codealong180710.Models.Vehicle
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Check Out";
 }
 
-<h2>Details</h2>
+<h2>Check out</h2>
 
+<h3>Are you sure you want to check out this?</h3>
 <div>
     <h4>Vehicle</h4>
     <hr />
@@ -42,6 +43,7 @@
             @Html.DisplayFor(model => model.VehicleType)
         </dd>
 
+
         <dt>
             @Html.DisplayNameFor(model => model.NrOfWheels)
         </dt>
@@ -75,8 +77,13 @@
         </dd>
 
     </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Confirm check out" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
