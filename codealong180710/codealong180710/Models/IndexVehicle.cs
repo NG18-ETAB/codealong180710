@@ -11,7 +11,7 @@ namespace codealong180710.Models
         public int Id { get; set; }
         public string Name { get; set; }
         [Display(Name = "Vehicle type")]
-        public VehicleType VehicleType { get; set; }
+        public string VehicleType { get; set; }
         [Display(Name = "Registration number")]
         public string RegNr { get; set; }
         public string Color { get; set; }

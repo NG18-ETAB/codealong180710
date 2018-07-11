@@ -7,12 +7,10 @@ using System.Web.Mvc;
 
 namespace codealong180710.Models
 {
-    public class ParkVehicleViewModel
+    public class EditVehicleViewModel
     {
-        [Required]
-        [StringLength(6, MinimumLength = 6, ErrorMessage = "The Registration number must be 6 characters.")]
-        [Display(Name = "Registration number")]
-        public string RegNr { get; set; }
+        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 
@@ -32,7 +30,8 @@ namespace codealong180710.Models
         public string Make { get; set; }
         [Required]
         public string Model { get; set; }
-
-        public string ErrorMessage { get; set; }
+        [Required]
+        [Display(Name = "Check in time")]
+        public DateTime CheckInTime { get; set; }
     }
 }

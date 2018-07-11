@@ -154,23 +154,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201807100744285_Init.cs" />
-    <Compile Include="Migrations\201807100744285_Init.Designer.cs">
-      <DependentUpon>201807100744285_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807100846398_secound.cs" />
-    <Compile Include="Migrations\201807100846398_secound.Designer.cs">
-      <DependentUpon>201807100846398_secound.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807100917416_third.cs" />
-    <Compile Include="Migrations\201807100917416_third.Designer.cs">
-      <DependentUpon>201807100917416_third.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201807100932395_fourth.cs" />
-    <Compile Include="Migrations\201807100932395_fourth.Designer.cs">
-      <DependentUpon>201807100932395_fourth.cs</DependentUpon>
+    <Compile Include="Migrations\201807110738061_Init.cs" />
+    <Compile Include="Migrations\201807110738061_Init.Designer.cs">
+      <DependentUpon>201807110738061_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\EditVehicleViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\ParkVehicleViewModel.cs" />
     <Compile Include="Models\Receipt.cs" />
@@ -240,17 +229,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201807100744285_Init.resx">
-      <DependentUpon>201807100744285_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807100846398_secound.resx">
-      <DependentUpon>201807100846398_secound.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807100917416_third.resx">
-      <DependentUpon>201807100917416_third.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201807100932395_fourth.resx">
-      <DependentUpon>201807100932395_fourth.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201807110738061_Init.resx">
+      <DependentUpon>201807110738061_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
