@@ -163,8 +163,10 @@
       <DependentUpon>201807100846398_secound.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\Vehicle.cs" />
-    <Compile Include="Models\VehicleIndexViewModel.cs" />
+    <Compile Include="Models\IndexVehicle.cs" />
+    <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,7 +250,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58467</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

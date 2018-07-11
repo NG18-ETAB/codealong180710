@@ -18,14 +18,60 @@ namespace codealong180710.Controllers
         // GET: Vehicles
         public ActionResult Index()
         {
-            List<VehicleIndexViewModel> viewModels = new List<VehicleIndexViewModel>();
+            List<IndexVehicle> vehicles = new List<IndexVehicle>();
             foreach (var v in db.Vehicles.ToList())
             {
-                viewModels.Add(new VehicleIndexViewModel() { Id = v.Id,
-                    Color = v.Color, Name = v.Name, RegNr = v.RegNr });
+                vehicles.Add(new IndexVehicle()
+                {
+                    Id = v.Id,
+                    Color = v.Color, Name = v.Name, RegNr = v.RegNr, VehicleType = v.VehicleType,
+                    CheckInTime = v.CheckInTime
+                });
             }
-            return View(viewModels);
+
+            IndexViewModel model = new IndexViewModel();
+            model.Vehicles = vehicles;
+            return View(model);
         }
+
+        [HttpPost]
+        public ActionResult Index([Bind(Include = "SearchString,SearchField")] IndexViewModel viewModel)
+        {
+            //IndexViewModel model = new IndexViewModel();
+            //model.SearchString = search;
+            List<IndexVehicle> vehicles = new List<IndexVehicle>();
+            if (String.IsNullOrWhiteSpace(viewModel.SearchString))
+            {
+                return RedirectToAction("Index");
+            }
+            List<Vehicle> databaseList = new List<Vehicle>();
+            if (viewModel.SearchField == "RegNr")
+            {
+                databaseList = db.Vehicles.Where(x => x.RegNr.Contains(viewModel.SearchString)).ToList();
+            }
+            else if (viewModel.SearchField == "VehicleType")
+            {
+                daatabaseList = db.Vehicles.Where(x => x.VehicleType.ToString().Contains(viewModel.SearchString)).ToList();
+            }
+            
+            foreach(var v in databaseList)
+            {
+                vehicles.Add(new IndexVehicle()
+                {
+                    Id = v.Id,
+                    Color = v.Color,
+                    Name = v.Name,
+                    RegNr = v.RegNr,
+                    VehicleType = v.VehicleType,
+                    CheckInTime = v.CheckInTime
+                });
+
+            }               
+            viewModel.Vehicles =vehicles;
+            return View(viewModel);
+
+        }
+
 
         // GET: Vehicles/Details/5
         public ActionResult Details(int? id)
@@ -53,10 +99,18 @@ namespace codealong180710.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Park([Bind(Include = "Id,RegNr,Name,NrOfWheels,Color,Model,Make")] Vehicle vehicle)
+        public ActionResult Park([Bind(Include = "Id,RegNr,Name,VehicleType,NrOfWheels,Color,Model,Make")] ParkVehicleViewModel fork)
         {
+            if(db.Vehicles.Where(x => x.RegNr == fork.RegNr).Count() > 0)
+            {
+                fork.ErrorMessage = "The registration number must be uniqe";
+                return View(fork);
+            }
+
+
             if (ModelState.IsValid)
             {
+                vehicle.CheckInTime = DateTime.Now;
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,7 +143,13 @@ namespace codealong180710.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vehicle).State = EntityState.Modified;
+                vehicle v = db.Vehicles.First(x = x.Id == vehicle.Id);
+                v.Color = vehicle.Color;
+                v.Make = vehicle.Make;
+                v.NrOfWheels = vehicle.NrOfWheels;
+                v.RegNr = vehicle.RegNr;
+                v.vehicleType = vehicle.VehicleType;
+                //db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

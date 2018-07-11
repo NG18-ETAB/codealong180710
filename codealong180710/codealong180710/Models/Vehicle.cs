@@ -26,5 +26,6 @@ namespace codealong180710.Models
         public string Model { get; set; }
         [Required]
         public string Make { get; set; }
+        public DateTime CheckInTime { get; set; }
     }
 }
