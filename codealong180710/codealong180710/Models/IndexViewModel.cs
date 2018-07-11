@@ -9,7 +9,6 @@ namespace codealong180710.Models
     {
         public List<IndexVehicle> Vehicles { get; set; }
         public string SearchString { get; set; }
-
-
+        public string SearchField { get; set; }
     }
 }

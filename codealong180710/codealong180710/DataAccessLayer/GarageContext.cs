@@ -12,6 +12,7 @@ namespace codealong180710.DataAccessLayer
         public GarageContext() : base("codealong180710")
         {
         }
+
         public DbSet<Vehicle> Vehicles { get; set; }
     }
 }
