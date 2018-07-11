@@ -20,6 +20,7 @@ namespace codealong180710.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+
             List<VehicleType> types = new List<VehicleType>();
             types.Add(new VehicleType() { TypeName = "Car" });
             types.Add(new VehicleType() { TypeName = "Boat" });
@@ -32,19 +33,6 @@ namespace codealong180710.Migrations
             }
             context.SaveChanges();
 
-            Vehicle v = new Vehicle()
-            {
-                Name = "Demo Car",
-                Color = "Red",
-                Make = "Demo",
-                Model = "Demo",
-                NrOfWheels = 4,
-                RegNr = "DEM001",
-                VehicleTypeId = context.VehicleTypes.First(x => x.TypeName == "Car").Id,
-                CheckInTime = DateTime.Now.AddDays(-1)
-            };
-            context.Vehicles.AddOrUpdate(x => x.RegNr, v);
-            context.SaveChanges();
         }
     }
 }

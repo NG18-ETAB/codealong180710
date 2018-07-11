@@ -32,7 +32,12 @@ namespace codealong180710.Models
         [Display(Name = "Check in time")]
         public DateTime CheckInTime { get; set; }
 
+        [Required]
+        public int MemberId { get; set; }
+
         [Display(Name ="Vehicle type")]
         public virtual VehicleType VehicleType { get; set; }
+
+        public virtual Member Member { get; set; }
     }
 }

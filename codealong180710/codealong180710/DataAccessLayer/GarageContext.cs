@@ -15,5 +15,6 @@ namespace codealong180710.DataAccessLayer
 
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
+        public DbSet<Member> Members { get; set; }
     }
 }
