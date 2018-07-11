@@ -10,6 +10,8 @@ namespace codealong180710.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        [Display(Name ="Owner")]
+        public string OwnerName { get; set; }
         [Display(Name = "Vehicle type")]
         public string VehicleType { get; set; }
         [Display(Name = "Registration number")]

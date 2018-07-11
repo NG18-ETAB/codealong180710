@@ -28,7 +28,8 @@ namespace codealong180710.Controllers
                     Name = v.Name,
                     RegNr = v.RegNr,
                     VehicleType = v.VehicleType.TypeName,
-                    CheckInTime = v.CheckInTime
+                    CheckInTime = v.CheckInTime,
+                    OwnerName = v.Member.FirstName + " " + v.Member.LastName
                 });
             }
             IndexViewModel model = new IndexViewModel();
@@ -68,7 +69,8 @@ namespace codealong180710.Controllers
                     Name = v.Name,
                     RegNr = v.RegNr,
                     VehicleType = v.VehicleType.TypeName,
-                    CheckInTime = v.CheckInTime
+                    CheckInTime = v.CheckInTime,
+                    OwnerName = v.Member.FirstName + " " + v.Member.LastName
                 });
             }
             viewModel.Vehicles = vehicles;
@@ -87,7 +89,20 @@ namespace codealong180710.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vehicle);
+            VehicleDetailsViewModel viewModel = new VehicleDetailsViewModel()
+            {
+                Id = vehicle.Id,
+                CheckInTime = vehicle.CheckInTime,
+                Color = vehicle.Color,
+                Make = vehicle.Make,
+                Model = vehicle.Model,
+                Name = vehicle.Name,
+                NrOfWheels = vehicle.NrOfWheels,
+                RegNr = vehicle.RegNr,
+                VehicleType = vehicle.VehicleType.TypeName,
+                OwnerName = vehicle.Member.FirstName + " "+ vehicle.Member.LastName
+            };
+            return View(viewModel);
         }
 
         // GET: Vehicles/Create

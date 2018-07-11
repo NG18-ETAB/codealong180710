@@ -32,6 +32,33 @@ namespace codealong180710.Migrations
             }
             context.SaveChanges();
 
+            List<Member> members = new List<Member>();
+            members.Add(new Member()
+            {
+                FirstName = "Amer",
+                LastName = "Olof",
+                BirthDay = DateTime.Now.AddYears(-22),
+                SocialSecNr = "19960711-1337",
+                EMail = "Yvette@Baryali.Ehab",
+                Adress = "Ravicandra 13",
+                PhoneNr = "08500843"
+            });
+            members.Add(new Member()
+            {
+                FirstName = "Zafar",
+                LastName = "Awras",
+                BirthDay = DateTime.Now.AddDays(-90509),
+                SocialSecNr = "18830212-8008",
+                EMail = "Linda@Ahmed.Naji",
+                Adress = "Cathy 101",
+                PhoneNr = "09031056"
+            });
+            foreach(var m in members)
+            {
+                context.Members.AddOrUpdate(x => x.SocialSecNr, m);
+            }
+            context.SaveChanges();
+
             Vehicle v = new Vehicle()
             {
                 Name = "Demo Car",
@@ -41,6 +68,7 @@ namespace codealong180710.Migrations
                 NrOfWheels = 4,
                 RegNr = "DEM001",
                 VehicleTypeId = context.VehicleTypes.First(x => x.TypeName == "Car").Id,
+                MemberId = context.Members.First().Id,
                 CheckInTime = DateTime.Now.AddDays(-1)
             };
             context.Vehicles.AddOrUpdate(x => x.RegNr, v);

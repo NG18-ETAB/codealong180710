@@ -1,4 +1,4 @@
-﻿@model codealong180710.Models.Vehicle
+﻿@model codealong180710.Models.VehicleDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -27,6 +27,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.OwnerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OwnerName)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
@@ -39,7 +47,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VehicleType.TypeName)
+            @Html.DisplayFor(model => model.VehicleType)
         </dd>
 
         <dt>
