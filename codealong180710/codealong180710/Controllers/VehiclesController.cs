@@ -27,7 +27,7 @@ namespace codealong180710.Controllers
                     Color = v.Color,
                     Name = v.Name,
                     RegNr = v.RegNr,
-                    VehicleType = v.VehicleType,
+                    VehicleType = v.VehicleType.TypeName,
                     CheckInTime = v.CheckInTime
                 });
             }
@@ -67,7 +67,7 @@ namespace codealong180710.Controllers
                     Color = v.Color,
                     Name = v.Name,
                     RegNr = v.RegNr,
-                    VehicleType = v.VehicleType,
+                    VehicleType = v.VehicleType.TypeName,
                     CheckInTime = v.CheckInTime
                 });
             }
@@ -93,7 +93,18 @@ namespace codealong180710.Controllers
         // GET: Vehicles/Create
         public ActionResult Park()
         {
-            return View();
+            ParkVehicleViewModel viewModel = new ParkVehicleViewModel();
+            viewModel.VehicleTypes = new List<SelectListItem>();
+            foreach (var v in db.VehicleTypes)
+            {
+                viewModel.VehicleTypes.Add(new SelectListItem()
+                {
+                    Text = v.TypeName,
+                    Value = v.Id.ToString()
+                });
+            }
+            //viewModel.VehicleTypes = temp;
+            return View(viewModel);
         }
 
         // POST: Vehicles/Create
@@ -101,7 +112,7 @@ namespace codealong180710.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Park([Bind(Include = "Id,RegNr,Name,VehicleType,NrOfWheels,Color,Model,Make")] ParkVehicleViewModel fork)
+        public ActionResult Park([Bind(Include = "Id,RegNr,Name,VehicleTypeId,NrOfWheels,Color,Model,Make")] ParkVehicleViewModel fork)
         {
             if (db.Vehicles.Where(x => x.RegNr == fork.RegNr).Count() > 0)
             {
@@ -119,7 +130,7 @@ namespace codealong180710.Controllers
                     Model = fork.Model,
                     Name = fork.Name,
                     NrOfWheels = fork.NrOfWheels,
-                    VehicleType = fork.VehicleType,
+                    VehicleTypeId = fork.VehicleTypeId,
                     CheckInTime = DateTime.Now
                 };
                 db.Vehicles.Add(vehicle);
@@ -142,7 +153,31 @@ namespace codealong180710.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vehicle);
+
+            EditVehicleViewModel viewModel = new EditVehicleViewModel()
+            {
+                Id = vehicle.Id,
+                Name = vehicle.Name,
+                NrOfWheels = vehicle.NrOfWheels,
+                Color = vehicle.Color,
+                Make = vehicle.Make,
+                Model = vehicle.Model,
+                CheckInTime = vehicle.CheckInTime
+            };
+            viewModel.VehicleTypes = new List<SelectListItem>();
+
+            viewModel.VehicleTypeId = vehicle.VehicleTypeId;
+
+            foreach (var v in db.VehicleTypes)
+            {
+                viewModel.VehicleTypes.Add(new SelectListItem()
+                {
+                    Text = v.TypeName,
+                    Value = v.Id.ToString()
+                });
+            }
+
+            return View(viewModel);
         }
 
         // POST: Vehicles/Edit/5
@@ -150,7 +185,7 @@ namespace codealong180710.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RegNr,Name,VehicleType,NrOfWheels,Color,Model,Make")] Vehicle vehicle)
+        public ActionResult Edit([Bind(Include = "Id,Name,VehicleTypeId,NrOfWheels,Color,Model,Make")] EditVehicleViewModel vehicle)
         {
             if (ModelState.IsValid)
             {
@@ -160,8 +195,7 @@ namespace codealong180710.Controllers
                 v.Model = vehicle.Model;
                 v.Name = vehicle.Name;
                 v.NrOfWheels = vehicle.NrOfWheels;
-                v.RegNr = vehicle.RegNr;
-                v.VehicleType = vehicle.VehicleType;
+                v.VehicleTypeId = vehicle.VehicleTypeId;
                 //db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -193,7 +227,7 @@ namespace codealong180710.Controllers
 
             Receipt receipt = new Receipt();
             receipt.RegNr = vehicle.RegNr;
-            receipt.VehicleType = vehicle.VehicleType;
+            receipt.VehicleType = vehicle.VehicleType.TypeName;
             receipt.CheckInTime = vehicle.CheckInTime;
             receipt.CheckOutTime = DateTime.Now;
 

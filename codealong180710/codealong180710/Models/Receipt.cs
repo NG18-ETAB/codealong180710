@@ -8,7 +8,7 @@ namespace codealong180710.Models
     public class Receipt
     {
         public string RegNr { get; set; }
-        public VehicleType VehicleType { get; set; }
+        public string VehicleType { get; set; }
         public DateTime CheckInTime { get; set; }
         public DateTime CheckOutTime { get; set; }
         public string TotalTime { get; set; }

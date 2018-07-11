@@ -17,8 +17,7 @@ namespace codealong180710.Models
         [Required]
         public string Name { get; set; }
         [Required]
-        [Display(Name = "Vehicle type")]
-        public VehicleType VehicleType { get; set; }
+        public int VehicleTypeId { get; set; }
         [Required]
         [Range(0,20, ErrorMessage = "All vehicles need to have between 0 and 20 wheels.")]
         [Display(Name = "Number of wheels")]
@@ -32,5 +31,8 @@ namespace codealong180710.Models
         [Required]
         [Display(Name = "Check in time")]
         public DateTime CheckInTime { get; set; }
+
+        [Display(Name ="Vehicle type")]
+        public virtual VehicleType VehicleType { get; set; }
     }
 }
