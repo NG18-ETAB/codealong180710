@@ -1,0 +1,86 @@
+﻿@model codealong180710.Models.MemberIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.EditorFor(model => model.SearchString)
+    </div>
+    <div class="form-group">
+        @Html.RadioButtonFor(model => model.SearchField, "FirstName", new { @checked = "checked" }) First Name<br />
+        @Html.RadioButtonFor(model => model.SearchField, "SocialSecNr") Social Security Number
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+}
+@if (Model.Members.Count > 0)
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Members[0].FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Members[0].LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Members[0].PhoneNr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Members[0].BirthDay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Members[0].Adress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Members[0].EMail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Members[0].SocialSecNr)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Members)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocialSecNr)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+}

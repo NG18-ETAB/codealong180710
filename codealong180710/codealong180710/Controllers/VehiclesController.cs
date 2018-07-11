@@ -58,7 +58,7 @@ namespace codealong180710.Controllers
             }
             else if (viewModel.SearchField == "VehicleType")
             {
-                databaseList = db.Vehicles.Where(x => x.VehicleType.ToString().Contains(viewModel.SearchString)).ToList();
+                databaseList = db.Vehicles.Where(x => x.VehicleType.TypeName.Contains(viewModel.SearchString)).ToList();
             }
             foreach (var v in databaseList)
             {
@@ -100,7 +100,7 @@ namespace codealong180710.Controllers
                 NrOfWheels = vehicle.NrOfWheels,
                 RegNr = vehicle.RegNr,
                 VehicleType = vehicle.VehicleType.TypeName,
-                OwnerName = vehicle.Member.FirstName + " "+ vehicle.Member.LastName
+                OwnerName = vehicle.Member.FirstName + " " + vehicle.Member.LastName
             };
             return View(viewModel);
         }
@@ -118,6 +118,15 @@ namespace codealong180710.Controllers
                     Value = v.Id.ToString()
                 });
             }
+            viewModel.Members = new List<SelectListItem>();
+            foreach (var m in db.Members)
+            {
+                viewModel.Members.Add(new SelectListItem()
+                {
+                    Text = m.FirstName + " " + m.LastName,
+                    Value = m.Id.ToString()
+                });
+            }
             //viewModel.VehicleTypes = temp;
             return View(viewModel);
         }
@@ -127,7 +136,7 @@ namespace codealong180710.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Park([Bind(Include = "Id,RegNr,Name,VehicleTypeId,NrOfWheels,Color,Model,Make")] ParkVehicleViewModel fork)
+        public ActionResult Park([Bind(Include = "Id,RegNr,Name,VehicleTypeId,MemberId,NrOfWheels,Color,Model,Make")] ParkVehicleViewModel fork)
         {
             if (db.Vehicles.Where(x => x.RegNr == fork.RegNr).Count() > 0)
             {
@@ -146,6 +155,7 @@ namespace codealong180710.Controllers
                     Name = fork.Name,
                     NrOfWheels = fork.NrOfWheels,
                     VehicleTypeId = fork.VehicleTypeId,
+                    MemberId = fork.MemberId,
                     CheckInTime = DateTime.Now
                 };
                 db.Vehicles.Add(vehicle);
@@ -191,7 +201,8 @@ namespace codealong180710.Controllers
                     Value = v.Id.ToString()
                 });
             }
-
+            viewModel.OwnerName = vehicle.Member.FirstName + " " + vehicle.Member.LastName;
+            viewModel.OwnerId = vehicle.MemberId;
             return View(viewModel);
         }
 
@@ -200,7 +211,7 @@ namespace codealong180710.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,VehicleTypeId,NrOfWheels,Color,Model,Make")] EditVehicleViewModel vehicle)
+        public ActionResult Edit([Bind(Include = "Id,OwnerId,Name,VehicleTypeId,NrOfWheels,Color,Model,Make")] EditVehicleViewModel vehicle)
         {
             if (ModelState.IsValid)
             {
@@ -211,6 +222,7 @@ namespace codealong180710.Controllers
                 v.Name = vehicle.Name;
                 v.NrOfWheels = vehicle.NrOfWheels;
                 v.VehicleTypeId = vehicle.VehicleTypeId;
+                v.MemberId = vehicle.OwnerId;
                 //db.Entry(vehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

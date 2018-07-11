@@ -149,6 +149,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="DataAccessLayer\GarageContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -162,6 +163,7 @@
     <Compile Include="Models\EditVehicleViewModel.cs" />
     <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\MemberIndexViewModel.cs" />
     <Compile Include="Models\ParkVehicleViewModel.cs" />
     <Compile Include="Models\Receipt.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -213,6 +215,11 @@
     <Content Include="Views\Vehicles\Edit.cshtml" />
     <Content Include="Views\Vehicles\Index.cshtml" />
     <Content Include="Views\Vehicles\Receipt.cshtml" />
+    <Content Include="Views\Members\Create.cshtml" />
+    <Content Include="Views\Members\Delete.cshtml" />
+    <Content Include="Views\Members\Details.cshtml" />
+    <Content Include="Views\Members\Edit.cshtml" />
+    <Content Include="Views\Members\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,7 +17,7 @@
         @Html.EditorFor(model => model.SearchString)
     </div>
     <div class="form-group">
-        @Html.RadioButtonFor(model => model.SearchField, "RegNr") Registration number<br />
+        @Html.RadioButtonFor(model => model.SearchField, "RegNr", new { @checked = "checked" }) Registration number<br />
         @Html.RadioButtonFor(model => model.SearchField, "VehicleType") Vehicle type
     </div>
     <div class="form-group">

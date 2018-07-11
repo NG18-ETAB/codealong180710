@@ -20,6 +20,10 @@ namespace codealong180710.Models
         [Display(Name = "Vehicle type")]
         public int VehicleTypeId { get; set; }
 
+        [Display(Name = "Owner")]
+        public string OwnerName { get; set; }
+        public int OwnerId { get; set; }
+
         [Required]
         [Range(0, 20, ErrorMessage = "All vehicles need to have between 0 and 20 wheels.")]
         [Display(Name = "Number of wheels")]
